@@ -11,12 +11,14 @@ import { AbstractParserWithWordBoundaryChecking } from "../../../common/parsers/
 const PATTERN = new RegExp(
     // 월
     "(?:" +
-        `(?:-|/|\\s{0,1})` +
         `(${matchAnyPattern(MONTH_DICTIONARY)})` +
     ")?" +
 
+    // '8월' 다음에는 무조건 공백류임, 특수문자는 없음
+    `(?:\\s*)?` +
     // 31일
     `(${ORDINAL_NUMBER_PATTERN})` +
+
     // 31일 to 1일
     `(?:` +
         `\\s{0,3}(?:\\-|부터)?\\s{0,3}` +

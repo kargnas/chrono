@@ -12,6 +12,6 @@ import AbstractMergeDateRangeRefiner from "../../../common/refiners/AbstractMerg
  */
 export default class KOMergeDateRangeRefiner extends AbstractMergeDateRangeRefiner {
     patternBetween(): RegExp {
-        return /^\s*(부터|-)\s*$/i;
+        return /^\s*(부터|-|~)\s*$/i;
     }
 }

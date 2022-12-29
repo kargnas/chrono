@@ -38,12 +38,9 @@ export default class KOCasualDateParser extends AbstractParserWithWordBoundaryCh
                 if (lowerText.match(/이틀\s?(후|뒤)/)) {
                     return references.theDayAfter(context.reference, 2);
                 } else if (lowerText.match(/(?:어제|어젯|지난)\s?밤/)) {
-                    if (targetDate.hour() > 6) {
-                        targetDate = targetDate.add(-1, "day");
-                    }
-
+                    targetDate = targetDate.add(-1, "day");
                     assignSimilarDate(component, targetDate);
-                    component.imply("hour", 0);
+                    component.imply("hour", 22);
                 }
         }
 

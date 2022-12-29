@@ -8,6 +8,6 @@ import AbstractMergeDateTimeRefiner from "../../../common/refiners/AbstractMerge
  */
 export default class KOMergeDateTimeRefiner extends AbstractMergeDateTimeRefiner {
     patternBetween(): RegExp {
-        return new RegExp("^\\s*(om|na|voor|in de|,|-)?\\s*$");
+        return new RegExp("^\\s*(부터|-|~)?\\s*$");
     }
 }

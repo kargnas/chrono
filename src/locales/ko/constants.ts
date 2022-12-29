@@ -92,11 +92,11 @@ export const ORDINAL_WORD_DICTIONARY: { [word: string]: number } = {
 export const TIME_UNIT_DICTIONARY: { [word: string]: OpUnitType | QUnitType } = {
     "초": "second",
     "분": "minute",
-    "시": "hour",
+    // "시": "hour",
     "시간": "hours",
     "일": "day",
     "주": "week",
-    "달": "month",
+    // "달": "month",
     "개월": "months",
     "분기": "quarter",
     "년": "year",
@@ -119,7 +119,7 @@ export function parseNumberPattern(match: string): number {
 
 //-----------------------------
 
-export const ORDINAL_NUMBER_PATTERN = `(?:0?[1-9]|[1-2][0-9]|3[0-1]일?)`;
+export const ORDINAL_NUMBER_PATTERN = `(?:0?[1-9]일|[1-2][0-9]일|3[0-1]일)`;
 export function parseOrdinalNumberPattern(match: string): number {
     let num = match.toLowerCase();
     num = num.replace(/(?:일)$/i, "");
@@ -145,7 +145,7 @@ export function parseYear(match: string): number {
 const SINGLE_TIME_UNIT_PATTERN = `(${NUMBER_PATTERN})\\s{0,3}(${matchAnyPattern(TIME_UNIT_DICTIONARY)})`;
 const SINGLE_TIME_UNIT_REGEX = new RegExp(SINGLE_TIME_UNIT_PATTERN, "i");
 
-export const TIME_UNITS_PATTERN = repeatedTimeunitPattern(`(?:(?:약)\\s{0,3})?`, SINGLE_TIME_UNIT_PATTERN);
+export const TIME_UNITS_PATTERN = repeatedTimeunitPattern(`(?:약\\s{0,3})?`, SINGLE_TIME_UNIT_PATTERN);
 
 export function parseTimeUnits(timeunitText): TimeUnits {
     const fragments = {};
