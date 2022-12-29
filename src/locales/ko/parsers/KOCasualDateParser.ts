@@ -7,7 +7,7 @@ import * as references from "../../../common/casualReferences";
 
 export default class KOCasualDateParser extends AbstractParserWithWordBoundaryChecking {
     innerPattern(context: ParsingContext): RegExp {
-        return /(지금|금일|오늘|명일|낼|내일|어제|모레|이틀\s?(후|뒤)|지난\s?밤)(?=\W|$)/i;
+        return /(이틀\s?(?:후|뒤)|(?:어제|어젯|지난)\s?밤|지금|금일|오늘|명일|낼|내일|어제|모레)(?=\W|$)/i;
     }
 
     innerExtract(context: ParsingContext, match: RegExpMatchArray): ParsingComponents | ParsingResult {
@@ -37,7 +37,7 @@ export default class KOCasualDateParser extends AbstractParserWithWordBoundaryCh
             default:
                 if (lowerText.match(/이틀\s?(후|뒤)/)) {
                     return references.theDayAfter(context.reference, 2);
-                } else if (lowerText.match(/지난\s?밤/)) {
+                } else if (lowerText.match(/(?:어제|어젯|지난)\s?밤/)) {
                     if (targetDate.hour() > 6) {
                         targetDate = targetDate.add(-1, "day");
                     }

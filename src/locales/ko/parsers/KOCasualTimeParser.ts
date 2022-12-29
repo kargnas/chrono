@@ -1,27 +1,31 @@
 import { ParsingContext } from "../../../chrono";
+import dayjs from "dayjs";
 import { AbstractParserWithWordBoundaryChecking } from "../../../common/parsers/AbstractParserWithWordBoundary";
 import * as casualReferences from "../../../common/casualReferences";
 
-const PATTERN = /(새벽중|이른아침|점심시간|정오|이른저녁|늦은저녁|밤늦게)(?=\W|$)/i;
+// (?!\s*\d) 는 "오후 3시"라는게 있을 때 거기 잡히지 않도록 한다. (이 파일은 오후, 밤등이 단독으로 쓰이는 것을 바람)
+// 위에꺼 삭제하고, KOTimeExpressionParser 랑 겹치지 않는 단어만 한다. 오류가 너무 많아서
+const PATTERN = /(자정|정오)(?!\s*\d)(?=\W|$)/i;
 
 export default class KOCasualTimeParser extends AbstractParserWithWordBoundaryChecking {
     innerPattern() {
         return PATTERN;
     }
     innerExtract(context: ParsingContext, match: RegExpMatchArray) {
+        let targetDate = dayjs(context.refDate);
+        const lowerText = match[0].toLowerCase();
+        const component = context.createParsingComponents();
+
+        if (!match[1]) {
+            return null;
+        }
+
         switch (match[1].toLowerCase()) {
-            case "새벽중":
+            case "자정":
                 return casualReferences.midnight(context.reference);
-            case "이른아침":
-                return casualReferences.morning(context.reference);
-            case "점심시간":
+
             case "정오":
                 return casualReferences.noon(context.reference);
-            case "이른저녁":
-                return casualReferences.afternoon(context.reference);
-            case "늦은저녁":
-            case "밤늦게":
-                return casualReferences.evening(context.reference);
         }
         return null;
     }

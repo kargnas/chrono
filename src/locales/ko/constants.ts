@@ -6,19 +6,19 @@ import { Weekday } from "../../index";
 
 export const WEEKDAY_DICTIONARY: { [word: string]: Weekday } = {
     "일요일": 0,
-    "(일)": 0,
+    "일욜": 0,
     "월요일": 1,
-    "(월)": 1,
+    "월욜": 1,
     "화요일": 2,
-    "(화)": 2,
+    "화욜": 2,
     "수요일": 3,
-    "(수)": 3,
+    "수욜": 3,
     "목요일": 4,
-    "(목)": 4,
+    "목욜": 4,
     "금요일": 5,
-    "(금)": 5,
+    "금욜": 5,
     "토요일": 6,
-    "(토)": 6,
+    "토욜": 6,
 };
 
 export const FULL_MONTH_NAME_DICTIONARY: { [word: string]: number } = {
@@ -104,9 +104,7 @@ export const TIME_UNIT_DICTIONARY: { [word: string]: OpUnitType | QUnitType } = 
 
 //-----------------------------
 
-export const NUMBER_PATTERN = `(?:${matchAnyPattern(
-    INTEGER_WORD_DICTIONARY
-)}|[0-9]+|[0-9]+\\.[0-9]+|몇)`;
+export const NUMBER_PATTERN = `(?:${matchAnyPattern(INTEGER_WORD_DICTIONARY)}|[0-9]+|[0-9]+\\.[0-9]+|몇)`;
 
 export function parseNumberPattern(match: string): number {
     const num = match.toLowerCase();
