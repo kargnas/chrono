@@ -14,7 +14,8 @@
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "removeComments": true,
-    "target": "es6"
+    "target": "es6",
+    "types": ["node", "jest"]
   },
   "include": [
     "src",
